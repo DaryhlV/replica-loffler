@@ -1,0 +1,35 @@
+[
+  {
+    "metodo": "qwen2.5:7b",
+    "n": 1,
+    "semilla": 0,
+    "segundos": 482.6,
+    "respuestas_invalidas": 0,
+    "micro_f1": 0.99,
+    "macro_f1": 0.9840738971173754,
+    "precision_macro": 0.9938271604938271,
+    "recall_macro": 0.975
+  },
+  {
+    "metodo": "qwen2.5:7b",
+    "n": 5,
+    "semilla": 0,
+    "segundos": 451.7,
+    "respuestas_invalidas": 0,
+    "micro_f1": 0.915,
+    "macro_f1": 0.8843183287400904,
+    "precision_macro": 0.8508771929824561,
+    "recall_macro": 0.946875
+  },
+  {
+    "metodo": "qwen2.5:7b",
+    "n": 10,
+    "semilla": 0,
+    "segundos": 446.7,
+    "respuestas_invalidas": 0,
+    "micro_f1": 0.695,
+    "macro_f1": 0.6659273255017937,
+    "precision_macro": 0.698019801980198,
+    "recall_macro": 0.809375
+  }
+]

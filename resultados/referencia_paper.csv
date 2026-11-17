@@ -1,0 +1,5 @@
+metodo,micro_f1,macro_f1
+SVM + TF-IDF (paper),0.96,0.79
+BETO ajustado (paper),0.95,0.8
+GPT-4o-mini few-shot (paper),0.86,0.66
+Llama 3.1 8B few-shot (paper),0.57,0.46
