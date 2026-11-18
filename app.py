@@ -10,7 +10,7 @@ from categorias import CLASES, CLAVES, DETECCION
 from experimento import correr_svm, ejemplos_fewshot, preparar
 from llm import Ollama, Simulado, interpretar
 
-# [PASO 10] MVP: interfaz web que compara SVM y LLM sobre una cláusula
+# Interfaz web que analiza una cláusula con el SVM y con el LLM elegido
 st.set_page_config(page_title="Detector de cláusulas abusivas", page_icon="⚖️", layout="centered")
 st.title("⚖️ Detector de cláusulas abusivas")
 st.caption("Réplica de Löffler et al. (2025), Artificial Intelligence and Law · SVM vs. LLM few-shot con Ollama")

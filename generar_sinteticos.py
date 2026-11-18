@@ -17,7 +17,7 @@ USU = ["el Usuario", "el Cliente", "el titular", "el consumidor"]
 MOD = ["en cualquier momento", "a su sola discreción", "sin expresión de causa", "cuando lo estime conveniente", "sin necesidad de justificación"]
 SINAV = ["sin previo aviso", "sin necesidad de notificación", "sin comunicarlo previamente", "sin aviso alguno"]
 
-# [PASO 1-2] Plantillas del corpus en español: cláusulas abusivas por clase (paper: 50 ToS chilenos, no público)
+# Plantillas de cláusulas abusivas, agrupadas por clase
 ABUSIVAS = {
     "cr": [
         "{E} podrá modificar los presentes términos y condiciones {M} {S}, y {U} no podrá oponerse a dichos cambios.",
@@ -59,7 +59,7 @@ ABUSIVAS = {
         "{U} acepta que la única vía para resolver controversias es el procedimiento interno de {E}, cuya decisión será definitiva.",
     ],
 }
-# [PASO 2] Cláusulas justas (no abusivas): ~80 % del corpus, como en el paper
+# Plantillas de cláusulas justas (no abusivas)
 JUSTAS = [
     "{U} podrá solicitar en cualquier momento la copia de su contrato a través de {V}.",
     "{E} informará a {U} con {D} días de anticipación cualquier cambio en las comisiones, y {U} podrá resolver el contrato sin penalidad.",
@@ -107,7 +107,7 @@ def rellenar(t, rnd):
     return txt[0].upper() + txt[1:]
 
 
-# [PASO 4] Partición: plantillas reservadas para que la mitad del test tenga redacciones nuevas
+# Separa las plantillas en las que pueden usarse en entrenamiento y las reservadas para prueba
 def reservar(plantillas, rnd, frac=0.25):
     """Separa plantillas solo-entrenamiento y solo-prueba, para medir generalización a redacciones nuevas."""
     idx = list(range(len(plantillas)))
@@ -129,7 +129,7 @@ def main():
     filas, vistos = [], set()
 
     def una(abusiva, parte):
-        # prueba: mitad con redacciones nuevas (plantillas no vistas) y mitad con redacciones conocidas
+        # Crea una cláusula; en prueba, la mitad usa plantillas reservadas
         uso = 1 if parte == "test" and rnd.random() < 0.5 else 0
         if abusiva:
             clases = [rnd.choice(list(ABUSIVAS))]
@@ -139,7 +139,7 @@ def main():
             return texto, clases
         return rellenar(JUSTAS[rnd.choice(plan["justa"][uso])], rnd), []
 
-    # [PASO 3] Anotación: cada cláusula recibe 0, 1 o 2 clases oscuras; 20 % abusivas
+    # Genera las cláusulas de prueba y de desarrollo con su proporción de abusivas
     for parte, total in (("test", n_test), ("dev", a.n - n_test)):
         n_ab, hechos, intentos = round(a.abusivas * total), 0, 0
         while hechos < total and intentos < 100000:

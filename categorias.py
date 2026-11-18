@@ -4,7 +4,7 @@ Son las cláusulas que la Ley de Protección al Consumidor chilena (Art. 16 LPC)
 Equivalen a las "cláusulas de riesgo" que busca detectar la tesis.
 """
 
-# [PASO 3] Esquema de anotación: 6 cláusulas oscuras (Art. 16 LPC), Löffler et al. (2025), Tabla 1
+# Define las 6 clases de cláusula oscura y las etiquetas de detección
 CLASES = {
     "cr":  ("Modificación unilateral", "modificación unilateral y arbitraria de los términos sin que el consumidor pueda rechazarla"),
     "ter": ("Terminación unilateral", "terminación unilateral y arbitraria del servicio"),

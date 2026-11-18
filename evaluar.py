@@ -4,8 +4,7 @@ from pathlib import Path
 
 import pandas as pd
 
-# Löffler et al. (2025), Tabla 5, Dark Detection (µ-F1, m-F1)
-# [PASO 9] Valores del paper para comparar (Tabla 5, Dark Detection)
+# Guarda los resultados de detección reportados en el paper para compararlos
 REFERENCIA = pd.DataFrame([
     {"metodo": "SVM + TF-IDF (paper)", "micro_f1": 0.96, "macro_f1": 0.79},
     {"metodo": "BETO ajustado (paper)", "micro_f1": 0.95, "macro_f1": 0.80},
@@ -14,7 +13,7 @@ REFERENCIA = pd.DataFrame([
 ])
 
 
-# [PASO 8] Promedio y desviación entre semillas → resultados/resumen.csv
+# Junta todas las corridas, calcula media y desviación por método y guarda el resumen
 def main():
     filas = []
     for f in Path("resultados").rglob("*.json"):

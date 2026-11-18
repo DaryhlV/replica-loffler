@@ -34,14 +34,14 @@ def preparar(df, tarea):
     if tarea == "deteccion":
         df["y"] = df["etiquetas"].map(lambda e: [datos.deteccion(e)])
         posibles = DETECCION
-    else:  # la clasificación se hace solo sobre cláusulas oscuras (como en el paper)
+    else:  # deja solo las cláusulas abusivas con su tipo
         df["y"] = df["etiquetas"].map(datos.solo_clases)
         df = df[df["y"].map(len) > 0]
         posibles = CLAVES
     return df, posibles
 
 
-# [PASO 8] Métricas del paper: µ-F1 y macro-F1
+# Calcula micro-F1, macro-F1, precisión y recall macro
 def metricas(y_true, y_pred, posibles):
     mlb = MultiLabelBinarizer(classes=posibles)
     Y, P = mlb.fit_transform(y_true), mlb.transform(y_pred)
@@ -51,7 +51,7 @@ def metricas(y_true, y_pred, posibles):
             "recall_macro": recall_score(Y, P, average="macro", **kw)}
 
 
-# [PASO 5] Enfoque supervisado: TF-IDF + SVM lineal (línea base del paper)
+# Entrena un SVM lineal con TF-IDF y predice las etiquetas de las cláusulas de prueba
 def correr_svm(tr, te, posibles):
     vec = TfidfVectorizer(ngram_range=(1, 2), min_df=1, sublinear_tf=True)
     X, Xt = vec.fit_transform(tr["texto"]), vec.transform(te["texto"])
@@ -59,13 +59,13 @@ def correr_svm(tr, te, posibles):
     clf = OneVsRestClassifier(LinearSVC(C=1.0, class_weight="balanced"))
     clf.fit(X, mlb.fit_transform(tr["y"]))
     pred = mlb.inverse_transform(clf.predict(Xt))
-    if posibles == DETECCION:  # una sola etiqueta: si el SVM no decide, se toma la de mayor puntaje
+    if posibles == DETECCION:  # si no hay una sola etiqueta, toma la de mayor puntaje
         punt = clf.decision_function(Xt)
         pred = [[posibles[int(np.argmax(s))]] if len(p) != 1 else list(p) for p, s in zip(pred, punt)]
     return [list(p) for p in pred]
 
 
-# [PASO 6] Selección de n ejemplos por clase para el prompt few-shot
+# Elige n ejemplos representativos por clase para el prompt
 def ejemplos_fewshot(tr, posibles, n, semilla):
     """n ejemplos representativos por clase (el paper exige al menos n por clase)."""
     rnd = random.Random(semilla)
@@ -92,7 +92,7 @@ def main():
     a = ap.parse_args()
 
     df, posibles = preparar(datos.cargar(a.fuente, a.csv), a.tarea)
-    tr = df[df["split"].isin(["train", "val"])]  # el paper arma los ejemplos con train + val
+    tr = df[df["split"].isin(["train", "val"])]  # train + val para los ejemplos del prompt
     te = df[df["split"] == "test"]
     if a.limite:
         te = te.sample(n=min(a.limite, len(te)), random_state=0)
@@ -108,7 +108,7 @@ def main():
         nombre = "svm"
     else:
         llm = Simulado() if a.modelo == "simulado" else Ollama(a.modelo)
-        # [PASO 7] Bucle few-shot: para cada n (1, 5, 10) y cada semilla, consulta al LLM por cada cláusula de prueba
+        # Consulta al LLM por cada cláusula de prueba, para cada n y cada semilla
         for n in a.n:
             for s in range(a.semillas):
                 ej = ejemplos_fewshot(tr, posibles, n, s)
@@ -117,7 +117,7 @@ def main():
                     r = llm(prompts.construir(txt, ej, posibles, a.tarea == "clasificacion"), semilla=s)
                     et = interpretar(r, posibles)
                     if a.tarea == "deteccion":
-                        et = et[:1] or ["no abusiva"]  # respuesta inválida → clase mayoritaria
+                        et = et[:1] or ["no abusiva"]  # respuesta inválida → no abusiva
                     pred.append(et[:3])
                     crudas.append(r)
                 corridas.append({"metodo": a.modelo, "n": n, "semilla": s, "segundos": round(time.time() - t0, 1),

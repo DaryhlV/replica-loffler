@@ -2,7 +2,7 @@
 
 ## Dónde está cada paso del workflow en el código
 
-Busca `[PASO` en VS Code (Ctrl + Shift + F) para saltar a cada parte.
+Usa Ctrl + Shift + F en VS Code y busca el nombre de la función para saltar a cada parte.
 
 | Paso del workflow | Archivo | Qué mirar |
 |---|---|---|

@@ -6,7 +6,7 @@ AZUL, NARANJA, VERDE, TINTA2, REJILLA = "#2a78d6", "#eb6834", "#1baf7a", "#52514
 plt.rcParams.update({"font.family": "DejaVu Sans", "axes.edgecolor": TINTA2, "xtick.color": TINTA2, "ytick.color": TINTA2})
 
 
-# [PASO 9] Gráfico: macro-F1 según n, frente al SVM y al paper
+# Dibuja el macro-F1 según n para cada LLM, junto al SVM y al paper
 def main(fuente="sintetico"):
     res = pd.read_csv("resultados/resumen.csv")
     ref = pd.read_csv("resultados/referencia_paper.csv")

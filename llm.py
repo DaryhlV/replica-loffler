@@ -7,7 +7,7 @@ import requests
 URL = "http://localhost:11434/api/chat"
 
 
-# [PASO 7] Inferencia local con Ollama (Llama 3.1 8B / Qwen2.5 7B), temperatura 0
+# Envía el prompt al modelo de Ollama y devuelve su respuesta
 class Ollama:
     def __init__(self, modelo, temperatura=0.0):
         self.modelo, self.temperatura = modelo, temperatura
@@ -40,7 +40,7 @@ class Simulado:
         return "ter" if any(k in c for k in ("cancelar", "cerrar", "bloquear", "terminado")) else "cr"
 
 
-# [PASO 7] Convierte la respuesta del LLM en etiquetas válidas
+# Extrae las etiquetas válidas de la respuesta del modelo
 def interpretar(texto, posibles):
     """Extrae las etiquetas válidas de la respuesta (las más largas primero: 'no abusiva' antes que 'abusiva')."""
     t = texto.lower()

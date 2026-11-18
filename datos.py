@@ -7,7 +7,7 @@ import pandas as pd
 from categorias import CLAVES
 
 
-# [PASO 2] Carga del corpus: sintético, CSV propio (banca peruana) o LexGLUE (inglés)
+# Carga el corpus como una tabla con texto, etiquetas y split
 def cargar(fuente="sintetico", csv=None):
     if fuente in ("sintetico", "csv"):
         ruta = csv or "data/sintetico.csv"
@@ -16,8 +16,8 @@ def cargar(fuente="sintetico", csv=None):
         if "split" not in df.columns:
             raise ValueError("El CSV necesita una columna split con train, val o test")
         return df[["texto", "etiquetas", "split"]]
-    if fuente == "lexglue":  # datos reales en inglés (CLAUDETTE / UNFAIR-ToS), solo para detección
-        mapa = {0: "ltd", 1: "ter", 2: "cr"}  # resto de categorías se cuentan como abusivas genéricas
+    if fuente == "lexglue":  # carga UNFAIR-ToS (inglés) desde Hugging Face
+        mapa = {0: "ltd", 1: "ter", 2: "cr"}  # las demás categorías quedan como abusivas genéricas
         from datasets import load_dataset
         partes = []
         for split in ("train", "validation", "test"):
