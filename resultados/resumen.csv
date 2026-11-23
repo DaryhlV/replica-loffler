@@ -1,9 +1,12 @@
 fuente,tarea,metodo,n,micro_f1,micro_sd,macro_f1,macro_sd,segundos,corridas
-sintetico,clasificacion,SVM + TF-IDF,0,0.557,,0.55,,0.0,1
-sintetico,deteccion,SVM + TF-IDF,0,0.8,,0.757,,0.0,1
-sintetico,deteccion,llama3.1:8b,1,0.975,,0.96,,517.1,1
-sintetico,deteccion,llama3.1:8b,5,0.995,,0.992,,465.2,1
-sintetico,deteccion,llama3.1:8b,10,0.83,,0.676,,546.9,1
-sintetico,deteccion,qwen2.5:7b,1,0.99,,0.984,,482.6,1
-sintetico,deteccion,qwen2.5:7b,5,0.915,,0.884,,451.7,1
-sintetico,deteccion,qwen2.5:7b,10,0.695,,0.666,,446.7,1
+lexglue,deteccion,SVM + TF-IDF,0,0.96,,0.878,,0.5,1
+lexglue,deteccion,llama3.1:8b,1,0.765,,0.545,,476.8,1
+lexglue,deteccion,llama3.1:8b,5,0.905,,0.475,,522.4,1
+sintetico,clasificacion,SVM + TF-IDF,0,0.511,,0.487,,0.0,1
+sintetico,deteccion,SVM + TF-IDF,0,0.75,,0.662,,0.2,1
+sintetico,deteccion,llama3.1:8b,1,0.803,,0.462,,707.8,1
+sintetico,deteccion,llama3.1:8b,5,0.8,,0.444,,697.2,1
+sintetico,deteccion,llama3.1:8b,10,0.767,,0.616,,1995.4,1
+sintetico,deteccion,qwen2.5:7b,1,0.91,,0.828,,720.3,1
+sintetico,deteccion,qwen2.5:7b,5,0.87,,0.832,,703.6,1
+sintetico,deteccion,qwen2.5:7b,10,0.803,,0.765,,704.0,1

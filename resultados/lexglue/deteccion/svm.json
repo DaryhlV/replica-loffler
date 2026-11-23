@@ -1,0 +1,12 @@
+[
+  {
+    "metodo": "SVM + TF-IDF",
+    "n": null,
+    "semilla": 0,
+    "segundos": 0.5,
+    "micro_f1": 0.96,
+    "macro_f1": 0.8778998778998779,
+    "precision_macro": 0.8778998778998779,
+    "recall_macro": 0.8778998778998779
+  }
+]

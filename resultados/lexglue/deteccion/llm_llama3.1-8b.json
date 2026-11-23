@@ -1,0 +1,24 @@
+[
+  {
+    "metodo": "llama3.1:8b",
+    "n": 1,
+    "semilla": 0,
+    "segundos": 476.8,
+    "respuestas_invalidas": 1,
+    "micro_f1": 0.765,
+    "macro_f1": 0.5454325644373519,
+    "precision_macro": 0.5463635017034514,
+    "recall_macro": 0.5955433455433455
+  },
+  {
+    "metodo": "llama3.1:8b",
+    "n": 5,
+    "semilla": 0,
+    "segundos": 522.4,
+    "respuestas_invalidas": 2,
+    "micro_f1": 0.905,
+    "macro_f1": 0.47506561679790027,
+    "precision_macro": 0.4547738693467337,
+    "recall_macro": 0.49725274725274726
+  }
+]

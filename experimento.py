@@ -53,7 +53,7 @@ def metricas(y_true, y_pred, posibles):
 
 # Entrena un SVM lineal con TF-IDF y predice las etiquetas de las cláusulas de prueba
 def correr_svm(tr, te, posibles):
-    vec = TfidfVectorizer(ngram_range=(1, 2), min_df=1, sublinear_tf=True)
+    vec = TfidfVectorizer(ngram_range=(1, 3), min_df=1, sublinear_tf=True)
     X, Xt = vec.fit_transform(tr["texto"]), vec.transform(te["texto"])
     mlb = MultiLabelBinarizer(classes=posibles)
     clf = OneVsRestClassifier(LinearSVC(C=1.0, class_weight="balanced"))
